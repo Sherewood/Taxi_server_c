@@ -45,13 +45,13 @@ void closeWindow() {
 // Taxis are drawn as circles with radius VEHICLE_RADIUS.
 void *showSimulation(void *d) {
   DispatchCenter  *dispatch = d;
-  
+
   // Open the window
   initializeWindow();
 
   // Now keep redrawing until someone kills the thread
   while(1) {
-    // Erase the background 
+    // Erase the background
     XSetForeground(display, gc, 0xFFFFFF);
     XFillRectangle(display, win, gc, 0, 0, CITY_WIDTH, CITY_HEIGHT);
 
@@ -72,15 +72,15 @@ void *showSimulation(void *d) {
 	XDrawString(display, win, gc, AREA_X_LOCATIONS[i]-AREA_RADIUS+15,
 		    AREA_Y_LOCATIONS[i]+AREA_RADIUS+12, AREA_NAMES[i], strlen(AREA_NAMES[i]));
     }
-    
-    // Draw all the taxis 
+
+    // Draw all the taxis
     for (int i=0; i<dispatch->numTaxis; i++) {
       // Set the color to the dropoffArea color if on way there
       if (dispatch->taxis[i]->status == DROPPING_OFF)
 	XSetForeground(display, gc, VEHICLE_COLORS[dispatch->taxis[i]->dropoffArea]);
       else if (dispatch->taxis[i]->status == PICKING_UP)
 	XSetForeground(display, gc, 0x333333);
-      else 
+      else
 	XSetForeground(display, gc, 0xFFFFFF);
 
       XFillArc(display, win, gc,
@@ -100,8 +100,7 @@ void *showSimulation(void *d) {
     XFlush(display);
     usleep(2000);
   }
-  
+
   closeWindow();
   pthread_exit(NULL);
 }
-
