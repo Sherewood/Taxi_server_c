@@ -1,7 +1,7 @@
 all:		simulator.o generator.o customer.o stop.o
-		gcc -o simulator simulator.o -lX11 -lpthread
-		gcc -o generator generator.o
-		gcc -o customer customer.o
+		gcc -o simulator simulator.o -lX11 -lpthread -g
+		gcc -o generator generator.o -g
+		gcc -o customer customer.o -g
 		gcc -o stop stop.o
 
 simulator.o:	simulator.c display.c dispatchCenter.c taxi.c simulator.h
